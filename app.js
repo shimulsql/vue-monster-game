@@ -18,10 +18,9 @@ new Vue({
         attack: function(){
             //attack player to the monster and damage the health of the monster
             this.playerAttacks(3, 10)
-            // if(this.checkWin()){
-            //     return 
-            // }
-            this.checkWin()
+            if(this.checkWin()){
+                return 
+            }
             //attack monster to the player and damage the health of the player
             this.monsterAttacks(3, 12)
             this.checkWin()
@@ -32,7 +31,13 @@ new Vue({
             this.checkWin()
         },
         heal: function(){
-            
+            if(this.playerHealth < 90){
+                this.playerHealth += 10
+            }else{
+                this.playerHealth = 100
+            }
+            this.monsterAttacks(3, 12)
+            this.checkWin()
         },
         giveUp: function(){
 

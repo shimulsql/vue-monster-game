@@ -8,6 +8,8 @@
     background-color: #eee;
     margin: auto;
     transition: width 500ms;
+    border-radius: 5px;
+    line-height: 2.5rem;
 }
 
 .controls, .log {

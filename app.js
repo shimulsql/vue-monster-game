@@ -12,25 +12,33 @@ new Vue({
             this.monsterHealth = 100
         },
         attack: function(){
-            // damage the monster health
-            this.monsterHealth -= this.calculateDamage(3, 10)
-             // if monster dead? end game else continue
-             this.checkWin()
+            //attack player to the monster and damage the health of the monster
+            this.playerAttacks(3, 10)
 
-
-            // damage player health
-            this.playerHealth -= this.calculateDamage(3, 12)
-            // if player dead? end game else continue
-            this.checkWin()
+            //attack monster to the player and damage the health of the player
+            this.monsterAttacks(3, 12)
         },
         specialAttack: function(){
-
+            //attack monster to the player and damage the health of the player
+            this.playerAttacks(10, 15)
         },
         heal: function(){
-
+            
         },
         giveUp: function(){
 
+        },
+        monsterAttacks: function(min, max){
+            // damage player health
+            this.playerHealth -= this.calculateDamage(min, max)
+            // if player dead? end game else continue
+            this.checkWin()
+        },
+        playerAttacks: function(min, max){
+            // damage the monster health
+            this.monsterHealth -= this.calculateDamage(min, max)
+            // if monster dead? end game else continue
+            this.checkWin()
         },
         calculateDamage: function(min, max){
             return Math.max(Math.floor((Math.random() * max) + 1), min)

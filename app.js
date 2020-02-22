@@ -14,6 +14,7 @@ new Vue({
             this.monsterHealth      = 100
             this.playerHealthColor  = '#15935e'
             this.monsterHealthColor = '#15935e'
+            this.specialAttackTimes = 3
         },
         attack: function(){
             //attack player to the monster and damage the health of the monster
@@ -27,10 +28,15 @@ new Vue({
         },
         specialAttack: function(){
             //attack monster to the player and damage the health of the player
-            this.playerAttacks(10, 15)
-            this.checkWin()
+            if(this.specialAttackTimes >= 1){
+                this.playerAttacks(10, 15)
+                this.checkWin()
+                this.specialAttackTimes--
+            }
+            
         },
         heal: function(){
+            // healths are increased by 10 with monster attacks
             if(this.playerHealth < 90){
                 this.playerHealth += 10
             }else{

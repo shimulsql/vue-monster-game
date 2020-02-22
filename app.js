@@ -5,7 +5,9 @@ new Vue({
         monsterHealth:      100,
         gameIsRunning:      false,
         playerHealthColor:  '#15935e',
-        monsterHealthColor: '#15935e'
+        monsterHealthColor: '#15935e',
+        specialAttackTimes: 3,
+        logs:               []
     },
     methods: {
         startGame: function(){
@@ -15,6 +17,7 @@ new Vue({
             this.playerHealthColor  = '#15935e'
             this.monsterHealthColor = '#15935e'
             this.specialAttackTimes = 3
+            this.logs = []
         },
         attack: function(){
             //attack player to the monster and damage the health of the monster
@@ -28,8 +31,13 @@ new Vue({
         },
         specialAttack: function(){
             //attack monster to the player and damage the health of the player
-            if(this.specialAttackTimes >= 1){
+            if(this.specialAttackTimes > 0){
                 this.playerAttacks(10, 15)
+                if (this.checkWin()) {
+                    return
+                }
+
+                this.monsterAttacks(3, 10)
                 this.checkWin()
                 this.specialAttackTimes--
             }
@@ -42,23 +50,40 @@ new Vue({
             }else{
                 this.playerHealth = 100
             }
+            // set log
+            this.logs.unshift({
+                isPlayer: true,
+                text: 'Player heals 10'
+            })
             this.monsterAttacks(3, 12)
             this.checkWin()
         },
         giveUp: function(){
-
+            this.gameIsRunning = false
         },
         monsterAttacks: function(min, max){
+            var damage = this.calculateDamage(min, max)
             // damage player health
-            this.playerHealth -= this.calculateDamage(min, max)
+            this.playerHealth -= damage
+            // set log
+            this.logs.unshift({
+                isPlayer: false,
+                text: 'Monster hits player for ' + damage
+            })
             // change the health color
             this._playerHealthColor()
             // if player dead? end game else continue
             // this.checkWin()
         },
         playerAttacks: function(min, max){
+            var damage = this.calculateDamage(min, max)
             // damage the monster health
-            this.monsterHealth -= this.calculateDamage(min, max)
+            this.monsterHealth -= damage
+            // set log
+            this.logs.unshift({
+                isPlayer: true,
+                text: 'Player hits monster for ' + damage
+            })
             // change the health color
             this._monsterHealthColor()
             // if monster dead? end game else continue

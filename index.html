@@ -47,11 +47,17 @@
             <button id="give-up" @click="giveUp">GIVE UP</button>
         </div>
     </section>
-    <section class="row log">
+    <section class="row log" v-if="logs.length > 0">
         <div class="small-12 columns">
-            <ul>
-                <li>
-
+            <ul class="">
+                <li v-for="log in logs">
+                    <span class="player" v-if="log.isPlayer === true">
+                        {{log.text}} 
+                    </span>
+                    <span class="monster" v-else>
+                        {{log.text}} 
+                    </span>
+                    
                 </li>
             </ul>
         </div>

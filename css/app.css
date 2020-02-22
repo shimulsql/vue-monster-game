@@ -22,6 +22,21 @@
     border-radius: 6px;
 }
 
+.log{
+    height: 300px;
+    overflow-y: scroll;
+}
+
+.log .player{
+    background: #30aa77;
+    color: #fff;
+}
+
+.log .monster{
+    background: #c23e35;
+    color: #fff;
+}
+
 .turn {
     margin-top: 20px;
     margin-bottom: 20px;
